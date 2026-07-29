@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+/* Enable class-based dark mode (toggle .dark on <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ═══════════════════════════════════════════════
+   Custom Tailwind v4 utilities & keyframes
+   ═══════════════════════════════════════════════ */
+
+/* ── Animated gradient for Hero ── */
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@utility animate-gradient {
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* ═══════════════════════════════════════════════
+   Dark-mode aware base styles
+   ═══════════════════════════════════════════════ */
+
+/* Smooth colour transition on theme switch */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom selection colour */
+::selection {
+  background: #818cf8;
+  color: #fff;
+}
+
+/* Scrollbar styling (WebKit) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #c7d2fe;
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+
+/* ═══════════════════════════════════════════════
+   Swiper pagination bullets
+   ═══════════════════════════════════════════════ */
+.swiper-pagination-bullet {
+  background: #6366f1 !important;
+  opacity: 0.35 !important;
+  transition: all 0.3s;
+}
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+  transform: scale(1.25);
+}
