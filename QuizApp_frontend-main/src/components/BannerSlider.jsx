@@ -1,8 +1,7 @@
 /**
  * BannerSlider.jsx — Category Carousel
  * ─────────────────────────────────────────────
- * Swiper-powered carousel showcasing quiz categories
- * with autoplay, responsive breakpoints, and dark mode.
+ * Swiper-powered carousel showcasing quiz categories with a more premium presentation.
  */
 
 import { motion } from "framer-motion";
@@ -12,7 +11,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
-/* ── Banner slide data ── */
 const banners = [
   {
     title: "Science & Technology",
@@ -41,14 +39,14 @@ const banners = [
   {
     title: "Programming",
     subtitle: "Code your way to the top",
-    gradient: "from-gray-800 to-gray-600",
+    gradient: "from-slate-800 to-slate-600",
     emoji: "💻",
   },
 ];
 
 export default function BannerSlider() {
   return (
-    <section className="bg-white py-24 dark:bg-gray-950">
+    <section className="py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -61,10 +59,10 @@ export default function BannerSlider() {
             Categories
           </span>
           <h2 className="mt-3 text-3xl font-extrabold text-gray-900 sm:text-4xl dark:text-white">
-            Browse Quiz <span className="text-indigo-600 dark:text-indigo-400">Categories</span>
+            Browse quiz <span className="text-indigo-600 dark:text-indigo-400">categories</span>
           </h2>
           <p className="mt-4 text-lg text-gray-500 dark:text-gray-400">
-            From science to pop culture — there's something for everyone.
+            From science to pop culture — there is something for every curious mind.
           </p>
         </motion.div>
 
@@ -73,6 +71,7 @@ export default function BannerSlider() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
+          className="rounded-[32px] border border-gray-200 bg-gradient-to-br from-indigo-50 via-white to-fuchsia-50 p-6 shadow-[0_20px_60px_rgba(15,23,42,0.06)] dark:border-gray-800 dark:from-slate-900/80 dark:via-slate-900/60 dark:to-slate-800/60 sm:p-8"
         >
           <Swiper
             modules={[Autoplay, Pagination, EffectFade]}
@@ -90,9 +89,8 @@ export default function BannerSlider() {
             {banners.map(({ title, subtitle, gradient, emoji }) => (
               <SwiperSlide key={title}>
                 <div
-                  className={`relative flex h-56 flex-col items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br ${gradient} p-8 text-center text-white shadow-lg transition-transform duration-300 hover:scale-[1.03]`}
+                  className={`relative flex h-56 flex-col items-center justify-center overflow-hidden rounded-[24px] bg-gradient-to-br ${gradient} p-8 text-center text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl`}
                 >
-                  {/* decorative circle */}
                   <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-white/10" />
                   <span className="mb-3 text-5xl">{emoji}</span>
                   <h3 className="text-xl font-bold">{title}</h3>

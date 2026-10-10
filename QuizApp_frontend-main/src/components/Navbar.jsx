@@ -46,7 +46,6 @@ export default function Navbar() {
   const { dark, toggleDark } = useTheme();
   const { isAuthenticated, isAdmin, logout } = useAuth();
 
-  /* ── Build visible links based on auth state ── */
   const navLinks = useMemo(() => {
     return allLinks.filter(({ auth }) => {
       if (auth === "any") return true;
@@ -62,19 +61,16 @@ export default function Navbar() {
     navigate("/login");
   };
 
-  /* ───── close mobile menu on route change ───── */
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
 
-  /* ───── shadow on scroll ───── */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* ───── lock body scroll when menu open ───── */
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => (document.body.style.overflow = "");
@@ -82,39 +78,38 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      className={`sticky top-0 z-50 w-full border-b border-white/70 transition-all duration-300 ${
         scrolled
-          ? "bg-white/80 shadow-lg backdrop-blur-md dark:bg-gray-900/80"
-          : "bg-white/70 backdrop-blur-sm dark:bg-gray-900/70"
+          ? "bg-white/85 shadow-[0_20px_45px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/80"
+          : "bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* ── Logo ── */}
-        <Link to="/" className="flex items-center gap-2 group">
-          <Brain className="h-8 w-8 text-indigo-600 transition-transform duration-300 group-hover:rotate-12 dark:text-indigo-400" />
+        <Link to="/" className="group flex items-center gap-2">
+          <div className="rounded-2xl border border-indigo-100 bg-indigo-50/80 p-2 shadow-sm transition-all duration-300 group-hover:rotate-6 dark:border-indigo-900/50 dark:bg-indigo-950/70">
+            <Brain className="h-6 w-6 text-indigo-600 transition-transform duration-300 dark:text-indigo-400" />
+          </div>
           <span className="text-xl font-extrabold tracking-tight text-gray-900 dark:text-white">
             Quiz<span className="text-indigo-600 dark:text-indigo-400">Master</span>
           </span>
         </Link>
 
-        {/* ── Desktop links ── */}
-        <ul className="hidden md:flex items-center gap-1">
+        <ul className="hidden items-center gap-1 md:flex">
           {navLinks.map(({ name, path, icon: Icon }) => {
             const active = pathname === path;
             return (
               <li key={path}>
                 <Link
                   to={path}
-                  className={`relative flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                  className={`relative flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition-all duration-200 ${
                     active
-                      ? "text-indigo-600 dark:text-indigo-400"
-                      : "text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 dark:text-gray-300 dark:hover:text-indigo-400 dark:hover:bg-indigo-950"
+                      ? "bg-indigo-50 text-indigo-600 shadow-sm dark:bg-indigo-950/70 dark:text-indigo-400"
+                      : "text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-indigo-950/70 dark:hover:text-indigo-400"
                   }`}
                 >
                   <Icon className="h-4 w-4" />
                   {name}
 
-                  {/* active underline indicator */}
                   {active && (
                     <motion.span
                       layoutId="nav-underline"
@@ -130,7 +125,7 @@ export default function Navbar() {
             <li>
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:text-red-600 hover:bg-red-50 dark:text-gray-300 dark:hover:text-red-400 dark:hover:bg-red-950 transition-colors duration-200"
+                className="flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium text-gray-600 transition-colors duration-200 hover:bg-red-50 hover:text-red-600 dark:text-gray-300 dark:hover:bg-red-950/70 dark:hover:text-red-400"
               >
                 <LogOut className="h-4 w-4" />
                 Logout
@@ -139,12 +134,10 @@ export default function Navbar() {
           )}
         </ul>
 
-        {/* ── Right side: theme toggle + hamburger ── */}
         <div className="flex items-center gap-2">
-          {/* Dark mode toggle */}
           <button
             onClick={toggleDark}
-            className="inline-flex items-center justify-center rounded-lg p-2 text-gray-600 transition-colors hover:bg-indigo-50 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-indigo-950 dark:hover:text-indigo-400"
+            className="inline-flex items-center justify-center rounded-full border border-gray-200 bg-white/80 p-2.5 text-gray-600 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-50 hover:text-indigo-600 dark:border-gray-700 dark:bg-slate-800/80 dark:text-gray-300 dark:hover:bg-indigo-950 dark:hover:text-indigo-400"
             aria-label="Toggle dark mode"
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -172,10 +165,9 @@ export default function Navbar() {
             </AnimatePresence>
           </button>
 
-          {/* ── Hamburger button ── */}
           <button
             onClick={() => setMobileOpen((o) => !o)}
-            className="inline-flex md:hidden items-center justify-center rounded-lg p-2 text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors dark:text-gray-300 dark:hover:bg-indigo-950 dark:hover:text-indigo-400"
+            className="inline-flex items-center justify-center rounded-full border border-gray-200 bg-white/80 p-2.5 text-gray-600 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-indigo-50 hover:text-indigo-600 dark:border-gray-700 dark:bg-slate-800/80 dark:text-gray-300 dark:hover:bg-indigo-950 dark:hover:text-indigo-400 md:hidden"
             aria-label="Toggle menu"
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -205,11 +197,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ── Mobile menu overlay ── */}
       <AnimatePresence>
         {mobileOpen && (
           <>
-            {/* backdrop */}
             <motion.div
               key="backdrop"
               initial={{ opacity: 0 }}
@@ -219,14 +209,13 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
             />
 
-            {/* slide-down panel */}
             <motion.ul
               key="mobile-menu"
               initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className="absolute left-0 right-0 top-16 z-50 flex flex-col gap-1 rounded-b-2xl bg-white p-4 shadow-xl md:hidden dark:bg-gray-900"
+              className="absolute left-0 right-0 top-16 z-50 flex flex-col gap-1 rounded-b-3xl border-t border-white/70 bg-white/95 p-4 shadow-2xl md:hidden dark:border-white/10 dark:bg-slate-900/95"
             >
               {navLinks.map(({ name, path, icon: Icon }, i) => {
                 const active = pathname === path;
@@ -239,7 +228,7 @@ export default function Navbar() {
                   >
                     <Link
                       to={path}
-                      className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors duration-200 ${
+                      className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition-colors duration-200 ${
                         active
                           ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400"
                           : "text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 dark:text-gray-300 dark:hover:bg-indigo-950 dark:hover:text-indigo-400"

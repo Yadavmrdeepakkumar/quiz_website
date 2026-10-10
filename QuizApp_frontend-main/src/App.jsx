@@ -24,8 +24,7 @@ export default function App() {
 
   return (
     <ToastProvider>
-      {/* Main shell — responds to .dark class on <html> */}
-      <div className="min-h-screen bg-gray-50 font-sans text-gray-900 antialiased transition-colors duration-300 dark:bg-gray-950 dark:text-gray-100">
+      <div className="relative min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top_left,_rgba(99,102,241,0.16),_transparent_30%),radial-gradient(circle_at_100%_0%,_rgba(236,72,153,0.14),_transparent_28%)] font-sans text-gray-900 antialiased transition-colors duration-300 dark:bg-[radial-gradient(circle_at_top_left,_rgba(99,102,241,0.18),_transparent_30%),radial-gradient(circle_at_100%_0%,_rgba(236,72,153,0.16),_transparent_28%)] dark:text-gray-100">
         {!hideNavbar && <Navbar />}
 
         <Routes>

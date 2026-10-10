@@ -1,9 +1,7 @@
 /**
  * Footer.jsx — Site Footer
  * ─────────────────────────────────────────────
- * 4-column layout: Brand + socials, Quick Links,
- * Resources, Contact info. Bottom copyright bar.
- * Already uses a dark bg (gray-900) so minimal dark: overrides.
+ * 4-column layout with a cleaner, more premium finish.
  */
 
 import { Link } from "react-router-dom";
@@ -37,30 +35,30 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-slate-950 text-gray-300">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
-          {/* ── Brand ── */}
+        <div className="grid gap-12 rounded-[32px] border border-white/10 bg-white/5 p-8 sm:grid-cols-2 lg:grid-cols-4 lg:p-10">
           <div>
             <Link to="/" className="inline-flex items-center gap-2">
-              <Brain className="h-8 w-8 text-indigo-400" />
+              <div className="rounded-2xl bg-indigo-500/15 p-2">
+                <Brain className="h-7 w-7 text-indigo-400" />
+              </div>
               <span className="text-xl font-extrabold text-white">
                 Quiz<span className="text-indigo-400">Master</span>
               </span>
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-gray-400">
-              The smartest quiz platform to test your knowledge, track your
-              growth, and compete with learners around the world.
+              The smartest quiz platform to test your knowledge, track your growth,
+              and enjoy a refined learning experience every day.
             </p>
 
-            {/* Social icons */}
             <div className="mt-6 flex gap-3">
               {socialLinks.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-800 text-gray-400 transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-600 hover:text-white"
+                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-400 transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-600 hover:text-white"
                 >
                   <Icon className="h-4 w-4" />
                 </a>
@@ -68,7 +66,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* ── Quick Links ── */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">
               Quick Links
@@ -87,7 +84,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* ── Resources ── */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">
               Resources
@@ -116,7 +112,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* ── Contact ── */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">
               Contact Us
@@ -142,8 +137,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* ── Bottom bar ── */}
-        <div className="mt-12 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+        <div className="mt-8 border-t border-white/10 pt-6 text-center text-sm text-gray-500">
           © {new Date().getFullYear()} QuizMaster. All rights reserved.
         </div>
       </div>
